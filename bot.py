@@ -79,6 +79,6 @@ while True:
                 continue
             status = genStatus(mention)
             print("Mentioned: " + status)
-            api.update_status(status)
+            api.update_status(status, mention.id)
             time.sleep(60)
     time.sleep(120)
