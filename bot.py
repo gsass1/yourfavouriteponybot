@@ -71,6 +71,7 @@ while True:
     for mention in mentions:
         if wasAlreadyMentioned(mention.id):
             print("Already mentioned!")
+            continue
         else:
             writeMentioned(mention.id)
             if containsBannedPhrase(mention.text):
@@ -79,5 +80,5 @@ while True:
             status = genStatus(mention)
             print("Mentioned: " + status)
             api.update_status(status)
-            continue
-        time.sleep(120)
+            time.sleep(60)
+    time.sleep(120)
