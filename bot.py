@@ -8,6 +8,7 @@ accessSecret=""
 
 ponyList = []
 bannedPhrases = []
+answers = []
 
 def containsBannedPhrase(text):
     for phrase in bannedPhrases:
@@ -15,10 +16,15 @@ def containsBannedPhrase(text):
             return True
     return False
 
+def getRandAnswer():
+    index = random.randrange(0, len(answers))
+    return answers[index]
+
 def genStatus(mention):
     index = random.randrange(0, len(ponyList))
     favouritePony = ponyList[index].rstrip('\n')
-    status = "@%s Your favourite pony is %s!" % (mention.user.screen_name, favouritePony)
+    answer = getRandAnswer() % favouritePony
+    status = "@%s %s" % (mention.user.screen_name, answer)
     return status 
 
 def wasAlreadyMentioned(tweetID):
@@ -52,6 +58,10 @@ with open("ponies.txt", "r") as poniesFile:
 # Read banned phrases
 with open("bannedphrases.txt", "r") as file:
     bannedPhrases = file.readlines()
+
+# Read answers
+with open("answers.txt", "r") as file:
+    answers = file.readlines()
 
 # Create mentioned.txt if not exists
 if not os.path.exists("mentioned.txt"):
