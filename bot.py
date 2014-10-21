@@ -1,4 +1,4 @@
-import tweepy, time, sys, random, json
+import os, tweepy, time, sys, random, json
 from pprint import pprint
 
 consumerKey=""
@@ -7,6 +7,13 @@ accessKey=""
 accessSecret=""
 
 ponyList = []
+bannedPhrases = []
+
+def containsBannedPhrase(text):
+    for phrase in bannedPhrases:
+        if phrase.lower().rstrip("\n") in text.lower():
+            return True
+    return False
 
 def genStatus(mention):
     index = random.randrange(0, len(ponyList))
@@ -42,6 +49,14 @@ with open(sys.argv[1], "r") as configFile:
 with open("ponies.txt", "r") as poniesFile:
     ponyList = poniesFile.readlines()
 
+# Read banned phrases
+with open("bannedphrases.txt", "r") as file:
+    bannedPhrases = file.readlines()
+
+# Create mentioned.txt if not exists
+if not os.path.exists("mentioned.txt"):
+    open("mentioned.txt", "w").close()
+
 auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
 auth.set_access_token(accessKey, accessSecret)
 api = tweepy.API(auth)
@@ -58,7 +73,9 @@ while True:
             print("Already mentioned!")
         else:
             writeMentioned(mention.id)
-            print(mention.text)
+            if containsBannedPhrase(mention.text):
+                print("Contained banned phrase! " + mention.text)
+                continue
             status = genStatus(mention)
             print("Mentioned: " + status)
             api.update_status(status)
