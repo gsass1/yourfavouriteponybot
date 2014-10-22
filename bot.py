@@ -9,6 +9,8 @@ ponyList = []
 bannedPhrases = []
 answers = []
 
+noUpdateStatus = False
+
 def createLogger():
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
@@ -56,9 +58,13 @@ def writeMentioned(tweetID):
     with open("mentioned.txt", "a") as file:
         file.write(str(tweetID) + "\n")
 
-if len(sys.argv) != 2:
+if len(sys.argv) < 2:
     print("Usage: %s <configfile>" % sys.argv[0])
     exit()
+
+if len(sys.argv) > 2:
+    if sys.argv[2] == "--noupdate":
+        noUpdateStatus = True
 
 # Read in config file
 with open(sys.argv[1], "r") as configFile:
@@ -107,6 +113,7 @@ while True:
                 continue
             status = genStatus(mention)
             logger.info("Mentioned: " + status)
-            api.update_status(status, mention.id)
+            if not noUpdateStatus:
+                api.update_status(status, mention.id)
             time.sleep(60)
     time.sleep(120)
