@@ -101,7 +101,7 @@ while True:
     try:
         mentions = api.mentions_timeline()
     except tweepy.TweepError:
-        logger.log("Rate limit! Waiting a bit...")
+        logger.info("Rate limit! Waiting a bit...")
         time.sleep(360) 
     for mention in mentions:
         if wasAlreadyMentioned(mention.id):
