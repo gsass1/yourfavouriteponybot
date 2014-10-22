@@ -111,7 +111,7 @@ while True:
             if containsBannedPhrase(mention.text):
                 logger.info("Contained banned phrase! " + mention.text)
                 if not noUpdateStatus:
-                    api.update_status("Please don't be rude :c", mention.id)
+                    api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
                 continue
             status = genStatus(mention)
             logger.info("Mentioned: " + status)
