@@ -1,5 +1,4 @@
-import os, tweepy, time, sys, random, json
-from pprint import pprint
+import logging, os, tweepy, time, sys, random, json
 
 consumerKey=""
 consumerSecret=""
@@ -9,6 +8,25 @@ accessSecret=""
 ponyList = []
 bannedPhrases = []
 answers = []
+
+def createLogger():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    handler = logging.FileHandler("log.txt")
+    handler.setLevel(logging.INFO)
+
+    formatter = logging.Formatter("%(asctime)s - %(message)s");
+
+    handler.setFormatter(formatter)
+
+    con = logging.StreamHandler(sys.stdout)
+    con.setLevel(logging.INFO)
+    con.setFormatter(formatter)
+
+    logger.addHandler(con)
+    logger.addHandler(handler)
+    return logger
 
 def containsBannedPhrase(text):
     for phrase in bannedPhrases:
@@ -31,7 +49,6 @@ def wasAlreadyMentioned(tweetID):
     with open("mentioned.txt", "r+") as file:
         for line in file.readlines():
             if str(tweetID) in line:
-                print(tweetID)
                 return True
     return False
 
@@ -67,6 +84,8 @@ with open("answers.txt", "r") as file:
 if not os.path.exists("mentioned.txt"):
     open("mentioned.txt", "w").close()
 
+logger = createLogger()
+
 auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
 auth.set_access_token(accessKey, accessSecret)
 api = tweepy.API(auth)
@@ -76,19 +95,18 @@ while True:
     try:
         mentions = api.mentions_timeline()
     except tweepy.TweepError:
-        print("Rate limit! Waiting a bit...")
+        logger.log("Rate limit! Waiting a bit...")
         time.sleep(360) 
     for mention in mentions:
         if wasAlreadyMentioned(mention.id):
-            print("Already mentioned!")
             continue
         else:
             writeMentioned(mention.id)
             if containsBannedPhrase(mention.text):
-                print("Contained banned phrase! " + mention.text)
+                logger.info("Contained banned phrase! " + mention.text)
                 continue
             status = genStatus(mention)
-            print("Mentioned: " + status)
+            logger.info("Mentioned: " + status)
             api.update_status(status, mention.id)
             time.sleep(60)
     time.sleep(120)
