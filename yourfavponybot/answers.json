@@ -1,0 +1,13 @@
+{
+    "1": [
+        "I could only guess that it's %s",
+        "Maybe it's %s.",
+        "Can only guess. %s perhaps?"
+    ],
+    "2": [
+        "I see you like %s?",
+        "Based on your feed maybe %s?",
+        "It could be %s!",
+        "I'm not lying but its mostly %s"
+    ]
+}

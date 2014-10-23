@@ -1,4 +1,4 @@
-import ai, logging, os, tweepy, time, sys, random, json
+import logging, os, tweepy, time, sys, random, json
 
 consumerKey=""
 consumerSecret=""
@@ -32,7 +32,7 @@ def createLogger():
 
 def containsBannedPhrase(text):
     for phrase in bannedPhrases:
-        if phrase.lower().rstrip("\n") in text.lower():
+        if phrase.lower() in text.lower():
             return True
     return False
 
@@ -40,9 +40,18 @@ def getRandAnswer():
     index = random.randrange(0, len(answers))
     return answers[index]
 
+def getStrForEval(evaluation):
+    with open("answers.json", "r") as file:
+        jsonData = json.loads(file.read())
+        answers = jsonData[str(evaluation)]
+        index = random.randrange(0, len(answers))
+        return answers[index]
+
 def genStatus(mention):
+    from intel import AI, EvaluationType
     ai = AI(api)
-    answer = ai.begin_search_process(ponyList, mention)
+    pony, evaluation = ai.begin_search_process(ponyList, mention)
+    answer = getStrForEval(evaluation) % pony
     status = "@%s %s" % (mention.user.screen_name, answer)
     return status 
 
@@ -75,15 +84,15 @@ with open(sys.argv[1], "r") as configFile:
 
 # Read pony list
 with open("ponies.txt", "r") as poniesFile:
-    ponyList = poniesFile.readlines()
+    ponyList = poniesFile.read().splitlines()
 
 # Read banned phrases
 with open("bannedphrases.txt", "r") as file:
-    bannedPhrases = file.readlines()
+    bannedPhrases = file.read().splitlines()
 
 # Read answers
 with open("answers.txt", "r") as file:
-    answers = file.readlines()
+    answers = file.read().splitlines()
 
 # Create mentioned.txt if not exists
 if not os.path.exists("mentioned.txt"):
@@ -110,13 +119,11 @@ while True:
             if containsBannedPhrase(mention.text):
                 logger.info("Contained banned phrase! " + mention.text)
                 if not noUpdateStatus:
-                    pass
-                    #api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
+                    api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
                 continue
             status = genStatus(mention)
             logger.info("Mentioned: " + status)
             if not noUpdateStatus:
-                pass
-                #api.update_status(status, mention.id)
-            time.sleep(60)
+                api.update_status(status, mention.id)
+            #time.sleep(60)
     time.sleep(120)
