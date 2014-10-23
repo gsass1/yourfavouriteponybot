@@ -9,7 +9,7 @@ ponyList = []
 bannedPhrases = []
 answers = []
 
-noUpdateStatus = True 
+noUpdateStatus = False 
 
 def createLogger():
     logger = logging.getLogger(__name__)
@@ -125,5 +125,5 @@ while True:
             logger.info("Mentioned: " + status)
             if not noUpdateStatus:
                 api.update_status(status, mention.id)
-            #time.sleep(60)
+            time.sleep(60)
     time.sleep(120)
