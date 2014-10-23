@@ -9,7 +9,7 @@ ponyList = []
 bannedPhrases = []
 answers = []
 
-noUpdateStatus = False
+noUpdateStatus = True 
 
 def createLogger():
     logger = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ def createLogger():
 
 def containsBannedPhrase(text):
     for phrase in bannedPhrases:
-        if phrase.lower().rstrip("\n") in text.lower():
+        if phrase.lower() in text.lower():
             return True
     return False
 
@@ -40,10 +40,18 @@ def getRandAnswer():
     index = random.randrange(0, len(answers))
     return answers[index]
 
+def getStrForEval(evaluation):
+    with open("answers.json", "r") as file:
+        jsonData = json.loads(file.read())
+        answers = jsonData[str(evaluation)]
+        index = random.randrange(0, len(answers))
+        return answers[index]
+
 def genStatus(mention):
-    index = random.randrange(0, len(ponyList))
-    favouritePony = ponyList[index].rstrip('\n')
-    answer = getRandAnswer() % favouritePony
+    from intel import AI, EvaluationType
+    ai = AI(api)
+    pony, evaluation = ai.begin_search_process(ponyList, mention)
+    answer = getStrForEval(evaluation) % pony
     status = "@%s %s" % (mention.user.screen_name, answer)
     return status 
 
@@ -76,15 +84,15 @@ with open(sys.argv[1], "r") as configFile:
 
 # Read pony list
 with open("ponies.txt", "r") as poniesFile:
-    ponyList = poniesFile.readlines()
+    ponyList = poniesFile.read().splitlines()
 
 # Read banned phrases
 with open("bannedphrases.txt", "r") as file:
-    bannedPhrases = file.readlines()
+    bannedPhrases = file.read().splitlines()
 
 # Read answers
 with open("answers.txt", "r") as file:
-    answers = file.readlines()
+    answers = file.read().splitlines()
 
 # Create mentioned.txt if not exists
 if not os.path.exists("mentioned.txt"):
@@ -117,5 +125,5 @@ while True:
             logger.info("Mentioned: " + status)
             if not noUpdateStatus:
                 api.update_status(status, mention.id)
-            time.sleep(60)
+            #time.sleep(60)
     time.sleep(120)
