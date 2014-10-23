@@ -14,17 +14,26 @@ class AI:
     def begin_search_process(self, ponyList, mention):
         pony = ""
         self.ponyLiked = dict() 
-        tweets = self.api.user_timeline(id=mention.user.id, count=30)
+        tweets = self.api.user_timeline(id=mention.user.id, count=100)
         for t in tweets:
             for p in ponyList:
-                if p in t.text:
-                    # TODO add more stuff
-                    # TODO move these in a file
+                name = p
+                nameNoWS = p.replace(" ", "")
+                if name in t.text or nameNoWS in t.text:
                     score = 1
-                    text = t.text.split(' ', 1)[1].lower()
+
+                    # The question is should we add the users name
+                    # in big consideration or not? I'll just add it.
+                    # Just don't split the first whitespace, so that
+                    # the users name stays in the text
+                    text = t.text
 
                     # We determine by the exciteness-factor
                     # of the user when relating to a specific pony
+
+                    # TODO add more stuff
+                    # TODO move these in a file
+
 
                     if "cute" in text:
                         score += 2
