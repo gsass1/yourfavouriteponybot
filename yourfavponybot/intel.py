@@ -34,7 +34,6 @@ class AI:
                     # TODO add more stuff
                     # TODO move these in a file
 
-
                     if "cute" in text:
                         score += 2
                     if "awesome" in text:
