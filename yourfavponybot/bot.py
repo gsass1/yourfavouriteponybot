@@ -1,4 +1,4 @@
-import logging, os, tweepy, time, sys, random, json
+import ai, logging, os, tweepy, time, sys, random, json
 
 consumerKey=""
 consumerSecret=""
@@ -9,7 +9,7 @@ ponyList = []
 bannedPhrases = []
 answers = []
 
-noUpdateStatus = False
+noUpdateStatus = True 
 
 def createLogger():
     logger = logging.getLogger(__name__)
@@ -41,9 +41,8 @@ def getRandAnswer():
     return answers[index]
 
 def genStatus(mention):
-    index = random.randrange(0, len(ponyList))
-    favouritePony = ponyList[index].rstrip('\n')
-    answer = getRandAnswer() % favouritePony
+    ai = AI(api)
+    answer = ai.begin_search_process(ponyList, mention)
     status = "@%s %s" % (mention.user.screen_name, answer)
     return status 
 
@@ -101,7 +100,7 @@ while True:
     try:
         mentions = api.mentions_timeline()
     except tweepy.TweepError:
-        logger.log("Rate limit! Waiting a bit...")
+        logger.info("Rate limit! Waiting a bit...")
         time.sleep(360) 
     for mention in mentions:
         if wasAlreadyMentioned(mention.id):
@@ -111,11 +110,13 @@ while True:
             if containsBannedPhrase(mention.text):
                 logger.info("Contained banned phrase! " + mention.text)
                 if not noUpdateStatus:
-                    api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
+                    pass
+                    #api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
                 continue
             status = genStatus(mention)
             logger.info("Mentioned: " + status)
             if not noUpdateStatus:
-                api.update_status(status, mention.id)
+                pass
+                #api.update_status(status, mention.id)
             time.sleep(60)
     time.sleep(120)
