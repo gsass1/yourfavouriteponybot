@@ -11,4 +11,5 @@ Your favourite pony bot is a Twitterbot that will try to find out your favourite
 ## Usage
 
 > python bot.py (/path/to/configfile)
+  
   Look in config.json.example for an example
