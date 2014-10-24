@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import logging, os, tweepy, time, sys, random, json
 
 consumerKey=""
