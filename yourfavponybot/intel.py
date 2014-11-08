@@ -19,14 +19,15 @@ class AI:
             for p in ponyList:
                 name = p
                 nameNoWS = p.replace(" ", "")
-                if name in t.text or nameNoWS in t.text:
+                evidenceText = t.text + " " + mention.user.description;
+                if name in evidenceText or nameNoWS in evidenceText:
                     score = 1
 
                     # The question is should we add the users name
                     # in big consideration or not? I'll just add it.
                     # Just don't split the first whitespace, so that
                     # the users name stays in the text
-                    text = t.text
+                    text = evidenceText 
 
                     # We determine by the exciteness-factor
                     # of the user when relating to a specific pony
