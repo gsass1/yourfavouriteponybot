@@ -41,6 +41,8 @@ class AI:
                         score += 2
                     if "best pony" in text:
                         score += 4
+                    if "favourite pony" in text:
+                        score += 8
 
                     if self.ponyLiked.has_key(p):
                         self.ponyLiked[p] += score 
