@@ -3,6 +3,6 @@ config.json
 log.txt
 *.swp
 *.pyc
-.pyproj
-.sln
-.suo
+*.pyproj
+*.sln
+*.suo
