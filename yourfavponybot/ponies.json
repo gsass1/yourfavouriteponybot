@@ -24,7 +24,6 @@
         },
         "rarity": {
             "name": "Rarity",
-            "initials":  "_none_",
             "nicknames": [
                 "Rarara"
             ]
@@ -39,9 +38,95 @@
         },
         "pinkie_pie": {
             "name": "Pinkie Pie",
-            "initials":  "PP",
+            "initials": "PP",
             "nicknames": [
                 "Ponka"
+            ]
+        },
+        "sunset_shimmer": {
+            "name": "Sunset Shimmer",
+            "nicknames": [
+                "SS",
+                "Sunny"
+            ]
+        },
+        "celestia": {
+            "name": "Princess Celestia",
+            "shortname": "Celestia",
+            "nicknames": [
+                "Celly"
+            ]
+        },
+        "luna": {
+            "name": "Princess Luna",
+            "shortname": "Luna",
+            "nicknames": [
+                "Woona"
+            ]
+        },
+        "cadance": {
+            "name": "Princess Cadance",
+            "shortname": "Cadance",
+            "nicknames": [
+            ]
+        },
+        "derpy_hooves": {
+            "name": "Derpy Hooves",
+            "nicknames": [
+                "Dizzy Do",
+                "Herpy Derpy",
+                "Derp"
+            ]
+        },
+        "vinyl_scratch": {
+            "name": "Vinyl Scratch",
+            "nicknames": [
+                "Viny",
+                "DJ PON3"
+            ]
+        },
+        "octavia_melody": {
+            "name": "Octavia Melody",
+            "nicknames": [
+                "Tavi"
+            ]
+        },
+        "lyra_hearthstrings": {
+            "name": "Lyra Hearthstrings",
+            "nicknames": [
+                "Ly"
+            ]
+        },
+        "spitfire": {
+            "name": "Spitfire",
+            "nicknames": [
+                "Spit",
+                "Captain"
+            ]
+        },
+        "applebloom": {
+            "name": "Applebloom",
+            "nicknames": [
+                "Bloom"
+            ]
+        },
+        "scootaloo": {
+            "name": "Scootaloo",
+            "nicknames": [
+                "Scoot",
+                "Chicken"
+            ]
+        },
+        "sweetiebelle": {
+            "name": "Sweetie Belle",
+            "nicknames": [
+                "Sweetie"
+            ]
+        },
+        "spike": {
+            "name": "Spike",
+            "nicknames": [ 
+                "Spikey"
             ]
         }
     }

@@ -83,15 +83,20 @@ class Bot:
         return tweet.text + " " + tweet.user.description
 
     def GenStatus(self, mention):
-        self.logger.info("Now generating status for User: {0}, TweetID: {1}, in response to: {2}".format(mention.user.screen_name, mention.id, mention.text))
+        self.logger.info("Now generating status for User: {0}, TweetID: {1}, in response to: '{2}'".format(mention.user.screen_name, mention.id, mention.text))
 
         tweets = self.api.user_timeline(id=mention.user.id, count=100)
 
         totalRefs = dict()
 
         for t in tweets:
-            refs = self.ponydb.FindReferences(self.BuildInfoString(t))
+            refs = self.ponydb.FindReferences(t.text)
             totalRefs.update(refs)
+
+        # Get refs in user description, value them more
+        refs = self.ponydb.FindReferences(mention.user.description)
+        refs.update((x, y * 2) for x, y in refs.items())
+        totalRefs.update(refs)
 
         # If nothing found at all
         eval = 1
@@ -101,6 +106,7 @@ class Bot:
         if eval == 1:
             topPony = self.ponydb.GetNameForKey(max(totalRefs, key=totalRefs.get))
         else:
+            # Get a random one if we dont have any pony
             topPony = self.ponydb.GetRandomPony()
 
         answer = self.GetStrForEval(eval) % topPony
@@ -143,5 +149,9 @@ class Bot:
         time.sleep(120)
 
 if __name__ == "__main__":
+    # Set encoding to UTF8
+    reload(sys)
+    sys.setdefaultencoding("utf8")
+
     bot = Bot()
     bot.Start()

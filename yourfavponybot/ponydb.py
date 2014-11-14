@@ -14,7 +14,7 @@ class PonyDB:
             self.scorewords = jsonData
 
     def GetRandomPony(self):
-        return random.choice(self.ponies.keys())["name"]
+        return self.ponies[random.choice(self.ponies.keys())]["name"]
 
     def GetNameForKey(self, key):
         return self.ponies[key]["name"]
@@ -33,16 +33,16 @@ class PonyDB:
             # Has whitespace in name
             if (' ' in self.ponies[key]["name"]) == True:
                 list.append(self.GenInitialsForName(self.ponies[key]["name"]))
-            else:
-                # Ow, there was a mistake
-                raise Exception("No initials found for key {0}".format(key))
         else:
-            if not self.ponies[key]["initials"] == "_none":
                 list.append(self.ponies[key]["initials"])
 
-        # Add the first name if one exists
-        if (' ' in self.ponies[key]["name"]) == True:
+        # Add the short name if exists
+        # Fluttershy FALSE FALSE
+        if ((' ' in self.ponies[key]["name"]) == True) and not self.ponies[key].has_key("shortname"):
             list.append(self.ponies[key]["name"].partition(' ')[0])
+        else:
+            if self.ponies[key].has_key("shortname"):
+                list.append(self.ponies[key]["shortname"])
 
         # Append nicknames
         list.extend(self.ponies[key]["nicknames"])
@@ -66,6 +66,6 @@ class PonyDB:
                     # Find scorewords
                     for sw in self.scorewords:
                         if sw.lower() in string.lower():
-                            log.info("Found scoreword '{0}' in {1}".format(sw, string))
+                            log.info("Found scoreword '{0}'".format(sw))
                             refs[key] += self.scorewords[sw]
         return refs
