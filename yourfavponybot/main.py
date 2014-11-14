@@ -23,10 +23,6 @@ class Bot:
             print("Error while parsing config file! %s" % e.message)
             raise
 
-        # Read pony list
-        with open("ponies.txt", "r") as poniesFile:
-            self.ponyList = poniesFile.read().splitlines()
-
         # Read banned phrases
         with open("bannedphrases.txt", "r") as file:
             self.bannedPhrases = file.read().splitlines()
