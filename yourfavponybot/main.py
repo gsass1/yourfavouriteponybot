@@ -75,9 +75,6 @@ class Bot:
             index = random.randrange(0, len(answers))
             return answers[index]
 
-    def BuildInfoString(self, tweet):
-        return tweet.text + " " + tweet.user.description
-
     def GenStatus(self, mention):
         self.logger.info("Now generating status for User: {0}, TweetID: {1}, in response to: '{2}'".format(mention.user.screen_name, mention.id, mention.text))
 
