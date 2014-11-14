@@ -45,7 +45,8 @@ class PonyDB:
                 list.append(self.ponies[key]["shortname"])
 
         # Append nicknames
-        list.extend(self.ponies[key]["nicknames"])
+        if self.ponies[key].has_key("nicknames"):
+            list.extend(self.ponies[key]["nicknames"])
         return list
 
     def FindWholeWord(self, w):
