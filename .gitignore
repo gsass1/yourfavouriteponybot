@@ -4,3 +4,5 @@ log.txt
 *.swp
 *.pyc
 .pyproj
+.sln
+.suo
