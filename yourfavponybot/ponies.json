@@ -1,0 +1,47 @@
+{
+    "ponies": [
+        {
+            "name": "Twilight Sparkle",
+            "nicknames": [
+                "Twily",
+                "Twi",
+                "Sparky"
+            ]
+        },
+        {
+            "name": "Rainbow Dash",
+            "nicknames": [
+                "Dash",
+                "Dashie",
+                "Rainbow"
+            ]
+        },
+        {
+            "name": "Applejack",
+            "initials": "AJ",
+            "nicknames": [
+            ]
+        },
+        {
+            "name": "Rarity",
+            "nicknames": [
+                "Rarara"
+            ]
+        },
+        {
+            "name": "Fluttershy",
+            "initials": "FS",
+            "nicknames": [
+                "Flutters",
+                "Shy"
+            ]
+        },
+        {
+            "name": "Pinkie Pie",
+            "nicknames": [
+                "Pinkie",
+                "Ponka"
+            ]
+        }
+    ]
+}
