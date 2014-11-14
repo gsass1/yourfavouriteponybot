@@ -9,7 +9,6 @@ accessSecret=""
 
 ponyList = []
 bannedPhrases = []
-answers = []
 
 noUpdateStatus = False 
 
@@ -37,10 +36,6 @@ def containsBannedPhrase(text):
         if phrase.lower() in text.lower():
             return True
     return False
-
-def getRandAnswer():
-    index = random.randrange(0, len(answers))
-    return answers[index]
 
 def getStrForEval(evaluation):
     with open("answers.json", "r") as file:
@@ -91,10 +86,6 @@ with open("ponies.txt", "r") as poniesFile:
 # Read banned phrases
 with open("bannedphrases.txt", "r") as file:
     bannedPhrases = file.read().splitlines()
-
-# Read answers
-with open("answers.txt", "r") as file:
-    answers = file.read().splitlines()
 
 # Create mentioned.txt if not exists
 if not os.path.exists("mentioned.txt"):
