@@ -1,12 +1,9 @@
 #!/usr/bin/env python
 
 import logging, os, tweepy, time, sys, random, json
+import config
 
-consumerKey=""
-consumerSecret=""
-accessKey=""
-accessSecret=""
-
+botConfig = None
 ponyList = []
 bannedPhrases = []
 
@@ -72,12 +69,11 @@ if len(sys.argv) > 2:
         noUpdateStatus = True
 
 # Read in config file
-with open(sys.argv[1], "r") as configFile:
-    jsonData = json.loads(configFile.read())
-    consumerKey = jsonData["consumerKey"]
-    consumerSecret = jsonData["consumerSecret"]
-    accessKey = jsonData["accessKey"]
-    accessSecret = jsonData["accessSecret"]
+try:
+    botConfig = config.Config("config.json");
+except Exception as e:
+    print("Error while parsing config file! %s" % e.message)
+    raise
 
 # Read pony list
 with open("ponies.txt", "r") as poniesFile:
@@ -93,8 +89,8 @@ if not os.path.exists("mentioned.txt"):
 
 logger = createLogger()
 
-auth = tweepy.OAuthHandler(consumerKey, consumerSecret)
-auth.set_access_token(accessKey, accessSecret)
+auth = tweepy.OAuthHandler(botConfig.consumerKey, botConfig.consumerSecret)
+auth.set_access_token(botConfig.accessKey, botConfig.accessSecret)
 api = tweepy.API(auth)
 
 while True:
