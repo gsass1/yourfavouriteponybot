@@ -14,6 +14,8 @@ class Bot:
         if len(sys.argv) > 2:
             if sys.argv[2] == "--noupdate":
                 self.noUpdateStatus = True
+            else:
+                self.noUpdateStatus = False
 
         # Read in config file
         try:
