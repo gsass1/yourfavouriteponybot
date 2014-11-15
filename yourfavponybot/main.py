@@ -79,7 +79,7 @@ class Bot:
     def GenStatus(self, mention):
         self.logger.info("Now generating status for User: {0}, TweetID: {1}, in response to: '{2}'".format(mention.user.screen_name, mention.id, mention.text))
 
-        tweets = self.api.user_timeline(id=mention.user.id, count=100)
+        tweets = self.api.user_timeline(id=mention.user.id, count=200)
 
         totalRefs = dict()
 
@@ -121,7 +121,7 @@ class Bot:
     def MainLoop(self):
         mentions = []
         try:
-            mentions = self.api.mentions_timeline()
+            mentions = self.api.mentions_timeline(count=200)
         except tweepy.TweepError:
             self.logger.info("Rate limit! Waiting a bit...")
             time.sleep(360)
