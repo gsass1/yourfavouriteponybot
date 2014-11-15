@@ -2,6 +2,7 @@
     "ponies": {
         "twilight_sparkle": {
             "name": "Twilight Sparkle",
+            "initials": "TS",
             "nicknames": [
                 "Twily",
                 "Twi",
@@ -10,6 +11,7 @@
         },
         "rainbow_dash": {
             "name": "Rainbow Dash",
+            "initials": "RD",
             "nicknames": [
                 "Dashie"
             ]

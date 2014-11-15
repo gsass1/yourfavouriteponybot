@@ -26,18 +26,11 @@ class PonyDB:
     def GetAllPonyNameRefsForKey(self, key):
         list = []
         list.append(self.ponies[key]["name"])
-        # No "initials" field means that we should just
-        # generate the initials here or else we would
-        # waste space
-        if not self.ponies[key].has_key("initials"):
-            # Has whitespace in name
-            if (' ' in self.ponies[key]["name"]) == True:
-                list.append(self.GenInitialsForName(self.ponies[key]["name"]))
-        else:
+
+        if self.ponies[key].has_key("initials"):
                 list.append(self.ponies[key]["initials"])
 
         # Add the short name if exists
-        # Fluttershy FALSE FALSE
         if ((' ' in self.ponies[key]["name"]) == True) and not self.ponies[key].has_key("shortname"):
             list.append(self.ponies[key]["name"].partition(' ')[0])
         else:
