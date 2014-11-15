@@ -11,11 +11,12 @@ class Bot:
             print("Usage: %s <configfile>" % sys.argv[0])
             return
 
+        self.noUpdateStatus = False
+
         if len(sys.argv) > 2:
             if sys.argv[2] == "--noupdate":
                 self.noUpdateStatus = True
-            else:
-                self.noUpdateStatus = False
+
 
         # Read in config file
         try:
