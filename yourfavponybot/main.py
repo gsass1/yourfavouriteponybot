@@ -4,7 +4,7 @@ from ponydb import PonyDB
 bot = None
 
 class Bot:
-    def Start(self):
+    def __init__(self):
         self.logger = self.CreateLogger()
 
         if len(sys.argv) < 2:
@@ -37,6 +37,7 @@ class Bot:
         self.auth.set_access_token(self.botConfig.accessKey, self.botConfig.accessSecret)
         self.api = tweepy.API(self.auth)
 
+    def Start(self):
         try:
              self.MainLoop()
         except KeyboardInterrupt as e:
