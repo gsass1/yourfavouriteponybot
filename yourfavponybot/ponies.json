@@ -11,9 +11,7 @@
         "rainbow_dash": {
             "name": "Rainbow Dash",
             "nicknames": [
-                "Dash",
-                "Dashie",
-                "Rainbow"
+                "Dashie"
             ]
         },
         "applejack": {
@@ -68,6 +66,13 @@
             "name": "Princess Cadance",
             "shortname": "Cadance",
             "nicknames": [
+            ]
+        },
+        "chrysalis": {
+            "name": "Princess Chrysalis",
+            "shortname": "Chrysalis",
+            "nicknames": [
+                "Chrysa"
             ]
         },
         "derpy_hooves": {
@@ -125,9 +130,33 @@
         },
         "spike": {
             "name": "Spike",
-            "nicknames": [ 
+            "nicknames": [
                 "Spikey"
             ]
+        },
+        "adagio_dazzle": {
+            "name": "Adagio Dazzle"
+        },
+        "sonata_dusk": {
+            "name": "Sonata Dusk"
+        },
+        "aria_blaze": {
+            "name": "Aria Blaze"
+        },
+        "bon_bon": {
+            "name": "Bon Bon",
+            "nicknames": [
+                "Bonnie"
+            ]
+        },
+        "trixie": {
+            "name": "Trixie Lulamoon",
+            "nicknames": [
+                "Trix"
+            ]
+        },
+        "aryanne": { 
+            "name":  "Aryanne"
         }
     }
 }
