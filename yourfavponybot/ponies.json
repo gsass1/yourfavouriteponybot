@@ -1,6 +1,6 @@
 {
-    "ponies": [
-        {
+    "ponies": {
+        "twilight_sparkle": {
             "name": "Twilight Sparkle",
             "nicknames": [
                 "Twily",
@@ -8,27 +8,25 @@
                 "Sparky"
             ]
         },
-        {
+        "rainbow_dash": {
             "name": "Rainbow Dash",
             "nicknames": [
-                "Dash",
-                "Dashie",
-                "Rainbow"
+                "Dashie"
             ]
         },
-        {
+        "applejack": {
             "name": "Applejack",
             "initials": "AJ",
             "nicknames": [
             ]
         },
-        {
+        "rarity": {
             "name": "Rarity",
             "nicknames": [
                 "Rarara"
             ]
         },
-        {
+        "fluttershy": {
             "name": "Fluttershy",
             "initials": "FS",
             "nicknames": [
@@ -36,12 +34,129 @@
                 "Shy"
             ]
         },
-        {
+        "pinkie_pie": {
             "name": "Pinkie Pie",
+            "initials": "PP",
             "nicknames": [
-                "Pinkie",
                 "Ponka"
             ]
+        },
+        "sunset_shimmer": {
+            "name": "Sunset Shimmer",
+            "nicknames": [
+                "SS",
+                "Sunny"
+            ]
+        },
+        "celestia": {
+            "name": "Princess Celestia",
+            "shortname": "Celestia",
+            "nicknames": [
+                "Celly"
+            ]
+        },
+        "luna": {
+            "name": "Princess Luna",
+            "shortname": "Luna",
+            "nicknames": [
+                "Woona"
+            ]
+        },
+        "cadance": {
+            "name": "Princess Cadance",
+            "shortname": "Cadance",
+            "nicknames": [
+            ]
+        },
+        "chrysalis": {
+            "name": "Princess Chrysalis",
+            "shortname": "Chrysalis",
+            "nicknames": [
+                "Chrysa"
+            ]
+        },
+        "derpy_hooves": {
+            "name": "Derpy Hooves",
+            "nicknames": [
+                "Dizzy Do",
+                "Herpy Derpy",
+                "Derp"
+            ]
+        },
+        "vinyl_scratch": {
+            "name": "Vinyl Scratch",
+            "nicknames": [
+                "Viny",
+                "DJ PON3"
+            ]
+        },
+        "octavia_melody": {
+            "name": "Octavia Melody",
+            "nicknames": [
+                "Tavi"
+            ]
+        },
+        "lyra_heartstrings": {
+            "name": "Lyra Heartstrings",
+            "nicknames": [
+                "Ly"
+            ]
+        },
+        "spitfire": {
+            "name": "Spitfire",
+            "nicknames": [
+                "Spit",
+                "Captain"
+            ]
+        },
+        "applebloom": {
+            "name": "Applebloom",
+            "nicknames": [
+                "Bloom"
+            ]
+        },
+        "scootaloo": {
+            "name": "Scootaloo",
+            "nicknames": [
+                "Scoot",
+                "Chicken"
+            ]
+        },
+        "sweetiebelle": {
+            "name": "Sweetie Belle",
+            "nicknames": [
+                "Sweetie"
+            ]
+        },
+        "spike": {
+            "name": "Spike",
+            "nicknames": [
+                "Spikey"
+            ]
+        },
+        "adagio_dazzle": {
+            "name": "Adagio Dazzle"
+        },
+        "sonata_dusk": {
+            "name": "Sonata Dusk"
+        },
+        "aria_blaze": {
+            "name": "Aria Blaze"
+        },
+        "bon_bon": {
+            "name": "Bon Bon",
+            "nicknames": [
+                "Bonnie"
+            ]
+        },
+        "trixie": {
+            "name": "Trixie Lulamoon",
+            "nicknames": [
+                "Trix"
+            ]
+        },
+        "aryanne": { 
+            "name":  "Aryanne"
         }
-    ]
+    }
 }

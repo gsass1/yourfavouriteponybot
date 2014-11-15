@@ -10,6 +10,8 @@ Your favourite pony bot is a Twitterbot that will try to find out your favourite
 
 ## Usage
 
-> python bot.py (/path/to/configfile)
+> python main.py (/path/to/configfile)
   
   Look in config.json.example for an example
+
+Mentioned Tweet-IDs will be written to mentioned.txt and the log file is log.txt

@@ -6,3 +6,4 @@ log.txt
 *.pyproj
 *.sln
 *.suo
+*.user
