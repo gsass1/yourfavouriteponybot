@@ -38,11 +38,12 @@ class Bot:
         self.api = tweepy.API(self.auth)
 
     def Start(self):
-        try:
-             self.MainLoop()
-        except KeyboardInterrupt as e:
-            self.logger.error("Interrupted")
-            exit(0)
+        while True:
+            try:
+                 self.MainLoop()
+            except KeyboardInterrupt as e:
+                self.logger.error("Interrupted")
+                exit(0)
 
     def CreateLogger(self):
             logger = logging.getLogger("yourfavponybot")
