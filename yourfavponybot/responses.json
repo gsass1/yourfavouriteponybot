@@ -8,7 +8,11 @@
         "Nice",
         "Thanks to me!",
         "See? IT'S HAPPENING",
-        "AI is real"
+        "AI is real",
+        "Well then everything is alright I suppose",
+        "Glory to Arstotzka!",
+        "Tell me more about ponies!",
+        "Pray to me!"
     ],
     "negative": [
         "Do you think I'm a wizard?",
@@ -16,12 +20,20 @@
         "But I don't think anything else would make sense",
         ":(",
         "My creator has failed me",
-        "Only god knows"
+        "Only god knows",
+        "Don't ask me, duh",
+        "Maybe Gaben knows",
+        "Can you feel the Schadenfreude?",
+        "Maybe they programmed the API wrong",
+        "But... computers can't lie!"
     ],
     "question": [
         "It said so in the newspaper",
         "Because internet",
         "??? You dont believe me?",
-        "Exactly, I don't know too"
+        "Exactly, I don't know too",
+        "?",
+        "What do we do now?",
+        "Hm..."
     ]
 }
