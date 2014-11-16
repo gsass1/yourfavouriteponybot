@@ -1,0 +1,27 @@
+{
+    "positive": [
+        "That's exactly what I wanted to hear",
+        "See? Its magic",
+        ":)",
+        ":3",
+        ":D",
+        "Nice",
+        "Thanks to me!",
+        "See? IT'S HAPPENING",
+        "AI is real"
+    ],
+    "negative": [
+        "Do you think I'm a wizard?",
+        "You are clearly not tweeting enough about ponies",
+        "But I don't think anything else would make sense",
+        ":(",
+        "My creator has failed me",
+        "Only god knows"
+    ],
+    "question": [
+        "It said so in the newspaper",
+        "Because internet",
+        "??? You dont believe me?",
+        "Exactly, I don't know too"
+    ]
+}

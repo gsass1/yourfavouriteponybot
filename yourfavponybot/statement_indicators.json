@@ -1,0 +1,18 @@
+{
+    "positive": [
+        "yes",
+        "correct",
+        ":D",
+        "indeed",
+        ":)"
+    ],
+    "negative": [
+        "no",
+        "false",
+        ":(",
+        "not"
+    ],
+    "question": [
+        "why"
+    ]
+}

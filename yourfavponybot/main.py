@@ -1,5 +1,6 @@
 import logging, os, tweepy, time, sys, random, json
 from ponydb import PonyDB
+from ai import AI
 
 bot = None
 
@@ -9,7 +10,7 @@ class Bot:
 
         if len(sys.argv) < 2:
             print("Usage: %s <configfile>" % sys.argv[0])
-            return
+            exit(0)
 
         self.noUpdateStatus = False
 
@@ -25,6 +26,8 @@ class Bot:
         except Exception as e:
             print("Error while parsing config file! %s" % e.message)
             raise
+
+        self.ai = AI("responses.json", "statement_indicators.json")
 
         # Read banned phrases
         with open("bannedphrases.txt", "r") as file:
@@ -80,9 +83,8 @@ class Bot:
             index = random.randrange(0, len(answers))
             return answers[index]
 
-    def GenStatus(self, mention):
-        self.logger.info("Now generating status for User: {0}, TweetID: {1}, in response to: '{2}'".format(mention.user.screen_name, mention.id, mention.text))
-
+    def GenStatusForMention(self, mention):
+        self.logger.info("Status is mention")
         tweets = self.api.user_timeline(id=mention.user.id, count=200)
 
         totalRefs = dict()
@@ -110,6 +112,22 @@ class Bot:
         answer = self.GetStrForEval(eval) % topPony
         status = "@%s %s" % (mention.user.screen_name, answer)
         return status
+
+    def GenStatusForReply(self, mention):
+        self.logger.info("Status is reply")
+        reply = self.ai.GetReplyToStatus(mention)
+        if reply is not None:
+            return "@{0} {1}".format(mention.user.screen_name, reply)
+        else:
+            return None
+
+    def GenStatus(self, mention):
+        self.logger.info("Now generating status for User: {0}, TweetID: {1}, in response to: '{2}'".format(mention.user.screen_name, mention.id, mention.text))
+        if mention.in_reply_to_status_id_str is None:
+            return self.GenStatusForMention(mention)
+        else:
+            return self.GenStatusForReply(mention)
+
 
     def AlreadyMentioned(self, tweetID):
         with open("mentioned.txt", "r+") as file:
@@ -140,9 +158,12 @@ class Bot:
                         self.api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
                     continue
                 status = self.GenStatus(mention)
-                self.logger.info("Mentioned: " + status)
-                if not self.noUpdateStatus:
-                    self.api.update_status(status, mention.id)
+                if status is not None:
+                    self.logger.info("Mentioned: " + status)
+                    if not self.noUpdateStatus:
+                        self.api.update_status(status, mention.id)
+                else:
+                    self.logger.info("No mention")
                 time.sleep(60)
         time.sleep(120)
 
