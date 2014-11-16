@@ -11,9 +11,12 @@ class AI:
             self.statIndicators = json.loads(file.read())
 
     def IsStringQuestion(self, string):
-        return "?" in string
+        return string.endswith("?")
 
     def GetStringStatementType(self, string):
+        if self.IsStringQuestion(string):
+            return "question"
+
         stats = dict()
 
         stats["positive"] = 0
