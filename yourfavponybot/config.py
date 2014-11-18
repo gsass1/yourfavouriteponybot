@@ -10,3 +10,6 @@ class Config:
                 self.consumerSecret = jsonData["consumerSecret"]
                 self.accessKey = jsonData["accessKey"]
                 self.accessSecret = jsonData["accessSecret"]
+                self.tweetInterval = int(jsonData["tweetInterval"])
+                self.tweetGrabInterval = int(jsonData["tweetGrabInterval"])
+                self.rateLimitWaitInterval = int(jsonData["rateLimitWaitInterval"])

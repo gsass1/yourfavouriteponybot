@@ -146,7 +146,7 @@ class Bot:
             mentions = self.api.mentions_timeline(count=200)
         except tweepy.TweepError:
             self.logger.info("Rate limit! Waiting a bit...")
-            time.sleep(360)
+            time.sleep(self.botConfig.rateLimitWaitInterval)
         for mention in mentions:
             if self.AlreadyMentioned(mention.id):
                 continue
@@ -164,8 +164,8 @@ class Bot:
                         self.api.update_status(status, mention.id)
                 else:
                     self.logger.info("No mention")
-                time.sleep(60)
-        time.sleep(120)
+                time.sleep(self.botConfig.tweetInterval)
+        time.sleep(self.botConfig.tweetGrabInterval)
 
 if __name__ == "__main__":
     # Set encoding to UTF8

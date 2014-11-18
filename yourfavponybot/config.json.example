@@ -2,5 +2,8 @@
     "consumerKey": "",
     "consumerSecret": "",
     "accessKey": "",
-    "accessSecret": ""
+    "accessSecret": "",
+    "tweetInterval": 30,
+    "tweetGrabInterval": 120,
+    "rateLimitWaitInterval":  360
 }
