@@ -98,12 +98,7 @@ class Bot:
         refs.update((x, y * 2) for x, y in refs.items())
         totalRefs.update(refs)
 
-        # If nothing found at all
-        eval = 1
-        if len(totalRefs) == 0:
-            eval = 0
-
-        if eval == 1:
+        if len(totalRefs) is not 0:
             topPony = self.ponydb.GetNameForKey(max(totalRefs, key=totalRefs.get))
         else:
             # Get a random one if we dont have any pony
