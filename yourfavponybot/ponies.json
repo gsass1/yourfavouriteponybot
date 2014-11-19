@@ -44,11 +44,7 @@
             ]
         },
         "sunset_shimmer": {
-            "name": "Sunset Shimmer",
-            "nicknames": [
-                "SS",
-                "Sunny"
-            ]
+            "name": "Sunset Shimmer"
         },
         "celestia": {
             "name": "Princess Celestia",
@@ -107,21 +103,16 @@
         "spitfire": {
             "name": "Spitfire",
             "nicknames": [
-                "Spit",
-                "Captain"
+                "Spit"
             ]
         },
         "applebloom": {
-            "name": "Applebloom",
-            "nicknames": [
-                "Bloom"
-            ]
+            "name": "Applebloom"
         },
         "scootaloo": {
             "name": "Scootaloo",
             "nicknames": [
-                "Scoot",
-                "Chicken"
+                "Scoot"
             ]
         },
         "sweetiebelle": {
