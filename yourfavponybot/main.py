@@ -163,7 +163,6 @@ class Bot:
             if self.AlreadyMentioned(mention.id):
                 continue
             else:
-                self.WriteMentioned(mention.id)
                 if self.ContainsBannedPhrase(mention.text):
                     self.logger.info("Contained banned phrase! " + mention.text)
                     if not self.noUpdateStatus:
@@ -176,6 +175,7 @@ class Bot:
                         self.api.update_status(status, mention.id)
                 else:
                     self.logger.info("No mention")
+                self.WriteMentioned(mention.id)
                 time.sleep(self.botConfig.tweetInterval)
         time.sleep(self.botConfig.tweetGrabInterval)
 
