@@ -121,7 +121,7 @@ class Bot:
             # Get a random one if we dont have any pony
             topPony = self.ponydb.GetRandomPony()
 
-        answer = self.GetStrForEval(eval) % topPony
+        answer = self.GetStrForEval(int(len(totalRefs) != 0)) % topPony
         status = "@%s %s" % (mention.user.screen_name, answer)
         return status
 
