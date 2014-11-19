@@ -1,6 +1,7 @@
 import logging, os, tweepy, time, sys, random, json
 from ponydb import PonyDB
 from ai import AI
+from collections import Counter
 
 bot = None
 
@@ -108,12 +109,16 @@ class Bot:
 
         for t in tweets:
             refs = self.ponydb.FindReferences(t.text)
-            totalRefs.update(refs)
+            if len(refs) > 0:
+                totalRefs = dict(Counter(totalRefs)+Counter(refs))
 
         # Get refs in user description, value them more
         refs = self.ponydb.FindReferences(mention.user.description)
         refs.update((x, y * 2) for x, y in refs.items())
-        totalRefs.update(refs)
+        totalRefs = dict(Counter(totalRefs)+Counter(refs))
+
+        self.logger.info("Refs:")
+        self.logger.info(str(totalRefs))
 
         if len(totalRefs) is not 0:
             topPony = self.ponydb.GetNameForKey(max(totalRefs, key=totalRefs.get))
