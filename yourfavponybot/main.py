@@ -51,6 +51,23 @@ class Bot:
                 self.logger.error("Interrupted")
                 exit(0)
 
+    def DownloadAllTweets(self, name):
+        tweets = []
+
+        newTweets = self.api.user_timeline(screen_name=name, count=200)
+
+        tweets.extend(newTweets)
+
+        oldest = tweets[-1].id - 1
+
+        while len(newTweets) > 0:
+            print "Getting tweets before %s" % (oldest)
+            newTweets = self.api.user_timeline(screen_name=name, count=200, max_id=oldest)
+            tweets.extend(newTweets)
+            oldest = tweets[-1].id - 1
+            print "%s tweets downloaded so far" % (len(tweets))
+        return tweets
+
     def CreateLogger(self):
             logger = logging.getLogger("yourfavponybot")
             logger.setLevel(logging.INFO)
@@ -85,7 +102,7 @@ class Bot:
 
     def GenStatusForMention(self, mention):
         self.logger.info("Status is mention")
-        tweets = self.api.user_timeline(id=mention.user.id, count=200)
+        tweets = self.DownloadAllTweets(mention.user.screen_name)
 
         totalRefs = dict()
 
