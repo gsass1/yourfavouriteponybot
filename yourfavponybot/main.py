@@ -2,6 +2,8 @@ import logging, os, tweepy, time, sys, random, json
 from ponydb import PonyDB
 from ai import AI
 from collections import Counter
+import heapq
+from operator import itemgetter
 
 bot = None
 
@@ -120,13 +122,26 @@ class Bot:
         self.logger.info("Refs:")
         self.logger.info(str(totalRefs))
 
+        answerStr = ""
+
         if len(totalRefs) is not 0:
-            topPony = self.ponydb.GetNameForKey(max(totalRefs, key=totalRefs.get))
+            # Build a string that goes like this: "A, B or C"
+            if len(totalRefs) > 1:
+                highest = heapq.nlargest(max(0, min(3, len(totalRefs))), totalRefs, key=totalRefs.get)
+                for i in range(0, len(highest)):
+                    answerStr += self.ponydb.GetNameForKey(highest[i])
+                    if i == len(highest) - 2:
+                        answerStr += " or "
+                    elif i != len(highest) - 1:
+                        answerStr += ", "
+            else:
+                # Just one pony to process
+                answerStr = self.ponydb.GetNameForKey(max(totalRefs, key=totalRefs.get))
         else:
             # Get a random one if we dont have any pony
-            topPony = self.ponydb.GetRandomPony()
+            answerStr = self.ponydb.GetRandomPony()
 
-        answer = self.GetStrForEval(int(len(totalRefs) != 0)) % topPony
+        answer = self.GetStrForEval(int(len(totalRefs) != 0)) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
         return status
 

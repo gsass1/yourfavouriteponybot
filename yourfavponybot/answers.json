@@ -5,8 +5,8 @@
         "Can only guess. %s perhaps?"
     ],
     "1": [
-        "I see you like %s?",
-        "Based on your feed maybe %s?",
+        "You either like %s or all of them.",
+        "Based on your feed %s?",
         "It could be %s!",
         "I'm not lying but its mostly %s",
         "%s. Ba dum tss",
