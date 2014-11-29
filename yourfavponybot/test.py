@@ -137,7 +137,9 @@ class AITest(unittest.TestCase):
         mention = Mention()
         mention.text = "@YourFavouritePonyBot Ping @Nuke928"
 
-        self.assertEqual(bot.IsMentionPingRequest(mention), True)
+        isPing, user = bot.IsMentionPingRequest(mention)
+        self.assert_(isPing, "Should have been evaluated as Ping")
+        self.assertEqual(user, "Nuke928", "Should have evaluated Nuke928 as the ping target")
 
 if __name__ == '__main__':
     unittest.main()

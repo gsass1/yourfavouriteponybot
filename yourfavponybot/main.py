@@ -149,7 +149,7 @@ class Bot:
         str = mention.text.split(' ')
         if len(str) == 3:
             if str[0][0] == '@' and str[1].lower() == "ping" and str[2][0] == '@':
-                return True
+                return True, str[2][1:]
             else:
                 return False
         else:
@@ -157,8 +157,18 @@ class Bot:
 
     def GenStatusForMention(self, mention):
         self.logger.info("Status is mention")
-        tweets = self.twitter.DownloadAllTweets(mention.user.screen_name)
+        
+        isPing, userName = self.IsMentionPingRequest(mention)
+
+        if userName is None:
+            userName = mention.user.screen_name
+
+        tweets = self.twitter.DownloadAllTweets(userName)
         status, evalType, refs = self.GenStatusForEvidence(mention, tweets)
+
+        if isPing:
+            status = "@{0} {1}".format(userName, status)
+
         return status
 
     def GenStatusForReply(self, mention):
