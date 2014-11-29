@@ -150,10 +150,7 @@ class Bot:
         if len(str) == 3:
             if str[0][0] == '@' and str[1].lower() == "ping" and str[2][0] == '@':
                 return True, str[2][1:]
-            else:
-                return False
-        else:
-            return False
+        return False, None
 
     def GenStatusForMention(self, mention):
         self.logger.info("Status is mention")

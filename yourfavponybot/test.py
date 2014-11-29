@@ -141,5 +141,15 @@ class AITest(unittest.TestCase):
         self.assert_(isPing, "Should have been evaluated as Ping")
         self.assertEqual(user, "Nuke928", "Should have evaluated Nuke928 as the ping target")
 
+    def test_IsNotPing(self):
+        bot = Bot(testMode=True)
+
+        mention = Mention()
+        mention.text = "@YourFavouritePonyBot Ding @Nuke928"
+
+        isPing, user = bot.IsMentionPingRequest(mention)
+        self.assertEqual(isPing, False, "Should have not been evaluated as Ping")
+        self.assertEqual(user, None, "Should have not returned any user")
+
 if __name__ == '__main__':
     unittest.main()
