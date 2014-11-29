@@ -9,31 +9,32 @@ from twitter import Twitter
 bot = None
 
 class Bot:
-    def __init__(self):
+    def __init__(self, testMode=False):
         self.logger = self.CreateLogger()
 
-        if len(sys.argv) < 2:
-            print("Usage: %s <configfile>" % sys.argv[0])
-            exit(0)
+        if not testMode:
+            if len(sys.argv) < 2:
+                print("Usage: %s <configfile>" % sys.argv[0])
+                exit(0)
 
-        self.noUpdateStatus = False
+            self.noUpdateStatus = False
 
-        if len(sys.argv) > 2:
-            if sys.argv[2] == "--noupdate":
-                self.noUpdateStatus = True
+            if len(sys.argv) > 2:
+                if sys.argv[2] == "--noupdate":
+                    self.noUpdateStatus = True
 
 
-        # Read in config file
-        try:
-            import config
-            self.botConfig = config.Config("config.json");
-        except Exception as e:
-            print("Error while parsing config file! %s" % e.message)
-            raise
+            # Read in config file
+            try:
+                import config
+                self.botConfig = config.Config("config.json");
+            except Exception as e:
+                print("Error while parsing config file! %s" % e.message)
+                raise
+
+            self.twitter = Twitter(self.botConfig, self.noUpdateStatus)
 
         self.ai = AI("responses.json", "statement_indicators.json")
-
-        self.twitter = Twitter(self.botConfig, self.noUpdateStatus)
 
         # Read banned phrases
         with open("bannedphrases.txt", "r") as file:

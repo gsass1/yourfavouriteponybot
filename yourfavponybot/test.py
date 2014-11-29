@@ -2,6 +2,7 @@ import unittest
 import ponydb
 from ai import AI
 from main import Bot
+import sys
 
 class Mention:
     pass
@@ -34,7 +35,7 @@ class AITest(unittest.TestCase):
         self.assertEqual(ai.GetStringStatementType("Okay"), None)
 
     def test_User_Donald(self):
-        bot = Bot()
+        bot = Bot(testMode=True)
 
         mention = Mention()
         mention.user = User()
@@ -51,7 +52,7 @@ class AITest(unittest.TestCase):
         self.assertEqual(len(refs), 1, "Could have only found Twilight Sparkle!")
 
     def test_User_Thomas(self):
-        bot = Bot()
+        bot = Bot(testMode=True)
 
         mention = Mention()
         mention.user = User()
@@ -69,7 +70,7 @@ class AITest(unittest.TestCase):
         self.assert_(refs["twilight_sparkle"] > refs["fluttershy"], "Twilight should have been evaluated higher then Fluttershy!")
 
     def test_User_Bernd(self):
-        bot = Bot()
+        bot = Bot(testMode=True)
 
         mention = Mention()
         mention.user = User()
@@ -85,7 +86,7 @@ class AITest(unittest.TestCase):
         self.assertEqual(evalType, "guess", "Can only be guess, since no pony data at all")
 
     def test_User_Harry(self):
-        bot = Bot()
+        bot = Bot(testMode=True)
 
         mention = Mention()
         mention.user = User()
@@ -101,7 +102,7 @@ class AITest(unittest.TestCase):
         self.assert_(refs["rainbow_dash"] > refs["rarity"], "RB's score is higher, since she is in the user description!")
 
     def test_Nicknames(self):
-        bot = Bot()
+        bot = Bot(testMode=True)
 
         mention = Mention()
         mention.user = User()
