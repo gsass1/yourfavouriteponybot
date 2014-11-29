@@ -99,7 +99,7 @@ class Bot:
     def GetStrForEval(self, evaluation):
         with open("answers.json", "r") as file:
             jsonData = json.loads(file.read())
-            answers = jsonData[str(evaluation)]
+            answers = jsonData[evaluation]
             index = random.randrange(0, len(answers))
             return answers[index]
 
@@ -141,7 +141,12 @@ class Bot:
             # Get a random one if we dont have any pony
             answerStr = self.ponydb.GetRandomPony()
 
-        answer = self.GetStrForEval(int(len(totalRefs) != 0)) % answerStr
+        if(len(totalRefs) != 0):
+            evalType = "sure"
+        else:
+            evalTYpe = "guess"
+
+        answer = self.GetStrForEval(evalType) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
         return status
 
