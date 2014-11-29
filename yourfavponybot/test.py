@@ -101,6 +101,21 @@ class AITest(unittest.TestCase):
         self.assertEqual(len(refs), 2, "Should find Rainbow Dash and Rarity!")
         self.assert_(refs["rainbow_dash"] > refs["rarity"], "RB's score is higher, since she is in the user description!")
 
+    def test_SingleAnswer(self):
+        bot = Bot(testMode=True)
+
+        mention = Mention()
+        mention.user = User()
+        mention.user.screen_name = "Jessica"
+        mention.user.description = "Dunno"
+
+        tweets = []
+        tweets.append(Tweet("Applejack is nice. She is the best background pony!"))
+
+        status, evalType, refs = bot.GenStatusForEvidence(mention, tweets)
+        self.assertEqual(evalType, "sure", "Should have found that she likes some pony")
+        self.assertEqual(len(refs), 1, "Should find only find Applejack!")
+
     def test_Nicknames(self):
         bot = Bot(testMode=True)
 

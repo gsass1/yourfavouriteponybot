@@ -79,10 +79,13 @@ class Bot:
                 return True
         return False
 
-    def GetStrForEval(self, evaluation):
+    def GetStrForEval(self, type, evaluation):
         with open("answers.json", "r") as file:
             jsonData = json.loads(file.read())
-            answers = jsonData[evaluation]
+            if evaluation == "guess":
+                answers = jsonData[evaluation]
+            else:
+                answers = jsonData[evaluation][type]
             index = random.randrange(0, len(answers))
             return answers[index]
 
@@ -126,7 +129,12 @@ class Bot:
         else:
             evalType = "guess"
 
-        answer = self.GetStrForEval(evalType) % answerStr
+        if(len(totalRefs) == 1):
+            type = "single"
+        else:
+            type = "multi"
+
+        answer = self.GetStrForEval(type, evalType) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
         return status, evalType, totalRefs
 

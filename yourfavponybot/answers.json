@@ -4,12 +4,18 @@
         "Maybe it's %s.",
         "Can only guess. %s perhaps?"
     ],
-    "sure": [
-        "You either like %s or all of them.",
-        "Based on your feed %s?",
-        "It could be %s!",
-        "I'm not lying but its mostly %s",
-        "%s. Ba dum tss",
-        "%s \\o/"
-    ]
+    "sure": {
+        "single": [
+            "You like %s",
+            "You only like %s"
+        ],
+        "multi": [
+            "You either like %s or all of them.",
+            "Based on your feed %s?",
+            "It could be %s!",
+            "I'm not lying but its mostly %s",
+            "%s. Ba dum tss",
+            "%s \\o/"
+        ]
+    }
 }
