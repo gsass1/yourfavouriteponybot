@@ -147,7 +147,8 @@ class Bot:
     def GenStatusForMention(self, mention):
         self.logger.info("Status is mention")
         tweets = self.twitter.DownloadAllTweets(mention.user.screen_name)
-        return self.GenStatusForEvidence(tweets)
+        status, evalType, refs = self.GenStatusForEvidence(mention, tweets)
+        return status
 
     def GenStatusForReply(self, mention):
         self.logger.info("Status is reply")
