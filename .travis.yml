@@ -1,10 +1,10 @@
 language: python
 python:
-	- 2.7
+    - 2.7
 
 install:
-	- pip install tweepy
+    - pip install tweepy
 
 script:
-	- cd yourfavponybot
-	- python test.py
+    - cd yourfavponybot
+    - python test.py
