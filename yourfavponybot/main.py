@@ -10,9 +10,10 @@ bot = None
 
 class Bot:
     def __init__(self, testMode=False):
+        self.testMode = testMode
         self.logger = self.CreateLogger()
 
-        if not testMode:
+        if not self.testMode:
             if len(sys.argv) < 2:
                 print("Usage: %s <configfile>" % sys.argv[0])
                 exit(0)
@@ -58,7 +59,12 @@ class Bot:
             logger = logging.getLogger("yourfavponybot")
             logger.setLevel(logging.INFO)
 
-            handler = logging.FileHandler("log.txt")
+            if self.testMode:
+                logFilename = "log_test.txt"
+            else:
+                logFilename = "log.txt"
+
+            handler = logging.FileHandler(logFilename)
             handler.setLevel(logging.INFO)
 
             formatter = logging.Formatter("%(asctime)s - %(message)s");

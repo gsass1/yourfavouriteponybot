@@ -1,6 +1,7 @@
 mentioned.txt
 config.json
 log.txt
+log_test.txt
 *.swp
 *.pyc
 *.pyproj
