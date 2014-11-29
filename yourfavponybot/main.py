@@ -85,10 +85,7 @@ class Bot:
             index = random.randrange(0, len(answers))
             return answers[index]
 
-    def GenStatusForMention(self, mention):
-        self.logger.info("Status is mention")
-        tweets = self.twitter.DownloadAllTweets(mention.user.screen_name)
-
+    def GenStatusForEvidence(self, mention, tweets):
         totalRefs = dict()
 
         for t in tweets:
@@ -126,11 +123,16 @@ class Bot:
         if(len(totalRefs) != 0):
             evalType = "sure"
         else:
-            evalTYpe = "guess"
+            evalType = "guess"
 
         answer = self.GetStrForEval(evalType) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
-        return status
+        return status, evalType, totalRefs
+
+    def GenStatusForMention(self, mention):
+        self.logger.info("Status is mention")
+        tweets = self.twitter.DownloadAllTweets(mention.user.screen_name)
+        return self.GenStatusForEvidence(tweets)
 
     def GenStatusForReply(self, mention):
         self.logger.info("Status is reply")
