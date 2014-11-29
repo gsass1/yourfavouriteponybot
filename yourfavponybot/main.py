@@ -144,6 +144,17 @@ class Bot:
         status = "@%s %s" % (mention.user.screen_name, answer)
         return status, evalType, totalRefs
 
+    # TODO: refine this method
+    def IsMentionPingRequest(self, mention):
+        str = mention.text.split(' ')
+        if len(str) == 3:
+            if str[0][0] == '@' and str[1].lower() == "ping" and str[2][0] == '@':
+                return True
+            else:
+                return False
+        else:
+            return False
+
     def GenStatusForMention(self, mention):
         self.logger.info("Status is mention")
         tweets = self.twitter.DownloadAllTweets(mention.user.screen_name)

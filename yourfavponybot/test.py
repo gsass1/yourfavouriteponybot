@@ -131,5 +131,13 @@ class AITest(unittest.TestCase):
         self.assertEqual(evalType, "sure", "Should have found that he likes some pony")
         self.assertEqual(len(refs), 5, "Should have found 5 ponies")
 
+    def test_IsPing(self):
+        bot = Bot(testMode=True)
+
+        mention = Mention()
+        mention.text = "@YourFavouritePonyBot Ping @Nuke928"
+
+        self.assertEqual(bot.IsMentionPingRequest(mention), True)
+
 if __name__ == '__main__':
     unittest.main()
