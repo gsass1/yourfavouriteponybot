@@ -4,6 +4,7 @@ from ai import AI
 from collections import Counter
 import heapq
 from operator import itemgetter
+from twitter import Twitter
 
 bot = None
 
@@ -32,6 +33,8 @@ class Bot:
 
         self.ai = AI("responses.json", "statement_indicators.json")
 
+        self.twitter = Twitter(self.botConfig, self.noUpdateStatus)
+
         # Read banned phrases
         with open("bannedphrases.txt", "r") as file:
             self.bannedPhrases = file.read().splitlines()
@@ -42,10 +45,6 @@ class Bot:
         if not os.path.exists("mentioned.txt"):
             open("mentioned.txt", "w").close()
 
-        self.auth = tweepy.OAuthHandler(self.botConfig.consumerKey, self.botConfig.consumerSecret)
-        self.auth.set_access_token(self.botConfig.accessKey, self.botConfig.accessSecret)
-        self.api = tweepy.API(self.auth)
-
     def Start(self):
         while True:
             try:
@@ -53,23 +52,6 @@ class Bot:
             except KeyboardInterrupt as e:
                 self.logger.error("Interrupted")
                 exit(0)
-
-    def DownloadAllTweets(self, name):
-        tweets = []
-
-        newTweets = self.api.user_timeline(screen_name=name, count=200)
-
-        tweets.extend(newTweets)
-
-        oldest = tweets[-1].id - 1
-
-        while len(newTweets) > 0:
-            print "Getting tweets before %s" % (oldest)
-            newTweets = self.api.user_timeline(screen_name=name, count=200, max_id=oldest)
-            tweets.extend(newTweets)
-            oldest = tweets[-1].id - 1
-            print "%s tweets downloaded so far" % (len(tweets))
-        return tweets
 
     def CreateLogger(self):
             logger = logging.getLogger("yourfavponybot")
@@ -105,7 +87,7 @@ class Bot:
 
     def GenStatusForMention(self, mention):
         self.logger.info("Status is mention")
-        tweets = self.DownloadAllTweets(mention.user.screen_name)
+        tweets = self.twitter.DownloadAllTweets(mention.user.screen_name)
 
         totalRefs = dict()
 
@@ -180,7 +162,7 @@ class Bot:
     def MainLoop(self):
         mentions = []
         try:
-            mentions = self.api.mentions_timeline(count=200)
+            mentions = self.twitter.GetMentionsTimeline()
         except tweepy.TweepError:
             self.logger.info("Rate limit! Waiting a bit...")
             time.sleep(self.botConfig.rateLimitWaitInterval)
@@ -190,14 +172,10 @@ class Bot:
             else:
                 if self.ContainsBannedPhrase(mention.text):
                     self.logger.info("Contained banned phrase! " + mention.text)
-                    if not self.noUpdateStatus:
-                        self.api.update_status("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
-                    continue
+                    self.twitter.UpdateStatus("@%s Please don't be rude :c" % mention.user.screen_name, mention.id)
                 status = self.GenStatus(mention)
                 if status is not None:
-                    self.logger.info("Mentioned: " + status)
-                    if not self.noUpdateStatus:
-                        self.api.update_status(status, mention.id)
+                    self.twitter.UpdateStatus(status, mention.id)
                 else:
                     self.logger.info("No mention")
                 self.WriteMentioned(mention.id)
