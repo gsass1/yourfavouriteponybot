@@ -10,9 +10,16 @@ Your favourite pony bot is a Twitterbot that will try to find out your favourite
 
 ## Usage
 
-> python main.py (/path/to/configfile)
+> python main.py -cf CONFIGFILE [options]
+
+
+Options are:
+
+
+* --nu/--noupdate - Do not update Twitter status
   
-  Look in config.json.example for an example
+
+Look in config.json.example for an example
 
 ## Interaction
 
