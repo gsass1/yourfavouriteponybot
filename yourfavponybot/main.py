@@ -30,7 +30,7 @@ class Bot:
                 import config
                 self.botConfig = config.Config("config.json");
             except Exception as e:
-                print("Error while parsing config file! %s" % e.message)
+                self.logger.error("Error while parsing config file! %s" % e.message)
                 raise
 
             self.twitter = Twitter(self.botConfig, self.noUpdateStatus)
