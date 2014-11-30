@@ -5,6 +5,7 @@ from collections import Counter
 import heapq
 from operator import itemgetter
 from twitter import Twitter
+from argparse import ArgumentParser
 
 bot = None
 
@@ -14,21 +15,19 @@ class Bot:
         self.logger = self.CreateLogger()
 
         if not self.testMode:
-            if len(sys.argv) < 2:
-                print("Usage: %s <configfile>" % sys.argv[0])
-                exit(0)
+            parser = ArgumentParser()
+            parser.add_argument("-cf", "--config", required=True, help="The config file", metavar="FILE", default="config.json")
+            parser.add_argument("-nu", "--noupdate", help="Do not update status on Twitter", action="store_true", default=False)
+            args = parser.parse_args()
 
-            self.noUpdateStatus = False
-
-            if len(sys.argv) > 2:
-                if sys.argv[2] == "--noupdate":
-                    self.noUpdateStatus = True
+            configFile = args.config
+            self.noUpdateStatus = args.noupdate
 
 
             # Read in config file
             try:
                 import config
-                self.botConfig = config.Config("config.json");
+                self.botConfig = config.Config(configFile);
             except Exception as e:
                 self.logger.error("Error while parsing config file! %s" % e.message)
                 raise
