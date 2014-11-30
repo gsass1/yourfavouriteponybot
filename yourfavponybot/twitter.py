@@ -33,3 +33,11 @@ class Twitter:
             oldest = tweets[-1].id - 1
             log.info("%s tweets downloaded so far" % (len(tweets)))
         return tweets
+
+    def GetUser(self, name):
+        # If the user does not exists, tweepy will throw an exception
+        try:
+            user = self.api.get_user(screen_name=name)
+            return user
+        except tweepy.TweepError as e:
+            return None

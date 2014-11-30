@@ -158,6 +158,9 @@ class Bot:
 
         if userName is None:
             userName = mention.user.screen_name
+        else:
+            if not self.twitter.GetUser(userName):
+                return None
 
         tweets = self.twitter.DownloadAllTweets(userName)
         status, evalType, refs = self.GenStatusForEvidence(mention, tweets)
