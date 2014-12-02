@@ -67,7 +67,7 @@ class AITest(unittest.TestCase):
         status, evalType, refs = bot.GenStatusForEvidence(mention, tweets)
         self.assertEqual(evalType, "sure", "Should have found that he likes some pony")
         self.assertEqual(len(refs), 2, "Should find Fluttershy and Twilight!")
-        self.assert_(refs["twilight_sparkle"] > refs["fluttershy"], "Twilight should have been evaluated higher then Fluttershy!")
+        self.assertTrue(refs["twilight_sparkle"] > refs["fluttershy"], "Twilight should have been evaluated higher then Fluttershy!")
 
     def test_User_Bernd(self):
         bot = Bot(testMode=True)
@@ -99,7 +99,7 @@ class AITest(unittest.TestCase):
         status, evalType, refs = bot.GenStatusForEvidence(mention, tweets)
         self.assertEqual(evalType, "sure", "Should have found that he likes some pony")
         self.assertEqual(len(refs), 2, "Should find Rainbow Dash and Rarity!")
-        self.assert_(refs["rainbow_dash"] > refs["rarity"], "RB's score is higher, since she is in the user description!")
+        self.assertTrue(refs["rainbow_dash"] > refs["rarity"], "RB's score is higher, since she is in the user description!")
 
     def test_SingleAnswer(self):
         bot = Bot(testMode=True)
@@ -138,7 +138,7 @@ class AITest(unittest.TestCase):
         mention.text = "@YourFavouritePonyBot Ping @Nuke928"
 
         isPing, user = bot.IsMentionPingRequest(mention)
-        self.assert_(isPing, "Should have been evaluated as Ping")
+        self.assertTrue(isPing, "Should have been evaluated as Ping")
         self.assertEqual(user, "Nuke928", "Should have evaluated Nuke928 as the ping target")
 
     def test_IsNotPing(self):

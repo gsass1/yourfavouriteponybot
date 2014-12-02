@@ -23,7 +23,6 @@ class Bot:
             configFile = args.config
             self.noUpdateStatus = args.noupdate
 
-
             # Read in config file
             try:
                 import config
@@ -58,10 +57,7 @@ class Bot:
             logger = logging.getLogger("yourfavponybot")
             logger.setLevel(logging.INFO)
 
-            if self.testMode:
-                logFilename = "log_test.txt"
-            else:
-                logFilename = "log.txt"
+            logFilename = "log_test.txt" if self.testMode else "log.txt"
 
             handler = logging.FileHandler(logFilename)
             handler.setLevel(logging.INFO)
@@ -129,15 +125,8 @@ class Bot:
             # Get a random one if we dont have any pony
             answerStr = self.ponydb.GetRandomPony()
 
-        if(len(totalRefs) != 0):
-            evalType = "sure"
-        else:
-            evalType = "guess"
-
-        if(len(totalRefs) == 1):
-            type = "single"
-        else:
-            type = "multi"
+        evalType = "sure" if len(totalRefs) != 0 else "guess"
+        type = "single" if len(totalRefs) == 1 else "multi"
 
         answer = self.GetStrForEval(type, evalType) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
@@ -165,6 +154,7 @@ class Bot:
         tweets = self.twitter.DownloadAllTweets(userName)
         status, evalType, refs = self.GenStatusForEvidence(mention, tweets)
 
+        # Append the pinged user at the beginning of the tweet
         if isPing:
             status = "@{0} {1}".format(userName, status)
 
@@ -172,8 +162,7 @@ class Bot:
 
     def GenStatusForReply(self, mention):
         self.logger.info("Status is reply")
-        reply = self.ai.GetReplyToStatus(mention)
-        if reply is not None:
+        if self.ai.GetReplyToStatus(mention) is not None:
             return "@{0} {1}".format(mention.user.screen_name, reply)
         else:
             return None
