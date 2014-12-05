@@ -4,8 +4,8 @@ python:
 
 install:
     - pip install tweepy
-	- pip install requests
-	- pip install derpybooru
+    - pip install requests
+    - pip install derpybooru
 
 script:
     - cd yourfavponybot
