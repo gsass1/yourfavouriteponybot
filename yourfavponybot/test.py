@@ -151,5 +151,11 @@ class AITest(unittest.TestCase):
         self.assertEqual(isPing, False, "Should have not been evaluated as Ping")
         self.assertEqual(user, None, "Should have not returned any user")
 
+    def test_DBImage(self):
+        from dbquery import get_rand_dbimage_for_key
+        image = get_rand_dbimage_for_key("twilight sparkle")
+        self.assertIsNotNone(image)
+        self.assertTrue("twilight sparkle" in image.tags)
+
 if __name__ == '__main__':
     unittest.main()

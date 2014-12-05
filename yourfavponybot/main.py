@@ -6,6 +6,7 @@ import heapq
 from operator import itemgetter
 from twitter import Twitter
 from argparse import ArgumentParser
+from dbquery import get_rand_dbimage_for_key
 
 bot = None
 
@@ -108,10 +109,11 @@ class Bot:
 
         answerStr = ""
 
+        highest = heapq.nlargest(max(0, min(3, len(totalRefs))), totalRefs, key=totalRefs.get)
+
         if len(totalRefs) is not 0:
             # Build a string that goes like this: "A, B or C"
             if len(totalRefs) > 1:
-                highest = heapq.nlargest(max(0, min(3, len(totalRefs))), totalRefs, key=totalRefs.get)
                 for i in range(0, len(highest)):
                     answerStr += self.ponydb.GetNameForKey(highest[i])
                     if i == len(highest) - 2:
@@ -130,6 +132,13 @@ class Bot:
 
         answer = self.GetStrForEval(type, evalType) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
+
+        # Append image
+        pony = highest[0].replace('_', ' ')
+        image = get_rand_dbimage_for_key(pony)
+
+        status = "{0} {1}".format(status, image.full)
+
         return status, evalType, totalRefs
 
     # TODO: refine this method
