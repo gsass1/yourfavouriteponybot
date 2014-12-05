@@ -133,11 +133,12 @@ class Bot:
         answer = self.GetStrForEval(type, evalType) % answerStr
         status = "@%s %s" % (mention.user.screen_name, answer)
 
-        # Append image
-        pony = highest[0].replace('_', ' ')
-        image = get_rand_dbimage_for_key(pony)
+        if highest:
+            # Append image
+            pony = highest[0].replace('_', ' ')
+            image = get_rand_dbimage_for_key(pony)
 
-        status = "{0} {1}".format(status, image.full)
+            status = "{0} {1}".format(status, image.full)
 
         return status, evalType, totalRefs
 
