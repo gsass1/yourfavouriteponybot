@@ -172,7 +172,8 @@ class Bot:
 
     def GenStatusForReply(self, mention):
         self.logger.info("Status is reply")
-        if self.ai.GetReplyToStatus(mention) is not None:
+        reply = self.ai.GetReplyToStatus(mention)
+        if reply is not None:
             return "@{0} {1}".format(mention.user.screen_name, reply)
         else:
             return None
