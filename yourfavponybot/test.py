@@ -157,5 +157,14 @@ class AITest(unittest.TestCase):
         self.assertIsNotNone(image)
         self.assertTrue("twilight sparkle" in image.tags)
 
+    def test_DBImageNonExistent(self):
+        from dbquery import get_rand_dbimage_for_key
+        try:
+            image = get_rand_dbimage_for_key("tagthathopefullydoesnotexist")
+        except Exception:
+            self.fail("get_rand_dbimage_for_key raised an exception!")
+
+        self.assertIsNone(image)
+
 if __name__ == '__main__':
     unittest.main()
