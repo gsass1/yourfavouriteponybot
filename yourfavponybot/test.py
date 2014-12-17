@@ -2,6 +2,7 @@ import unittest
 import ponydb
 from ai import AI
 from main import Bot
+import json
 import sys
 
 class Mention:
@@ -153,9 +154,14 @@ class AITest(unittest.TestCase):
 
     def test_DBImage(self):
         from dbquery import get_rand_dbimage_for_key
-        image = get_rand_dbimage_for_key("twilight sparkle")
-        self.assertIsNotNone(image)
-        self.assertTrue("twilight sparkle" in image.tags)
+        with open("ponies.json", "r") as file:
+            data = json.loads(file.read())
+            for pony in data["ponies"]:
+                q = pony.replace('_', ' ')
+                print "Testing for query: " + q
+                image = get_rand_dbimage_for_key(q, count=1)
+                self.assertIsNotNone(image)
+                self.assert_(q in image.tags)
 
     def test_DBImageNonExistent(self):
         from dbquery import get_rand_dbimage_for_key
