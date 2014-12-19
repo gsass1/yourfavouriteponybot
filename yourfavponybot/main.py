@@ -7,6 +7,7 @@ from operator import itemgetter
 from twitter import Twitter
 from argparse import ArgumentParser
 from dbquery import get_rand_dbimage_for_key
+import sqlite3
 
 bot = None
 
@@ -34,6 +35,11 @@ class Bot:
 
             self.twitter = Twitter(self.botConfig, self.noUpdateStatus)
 
+            self.conn = sqlite3.connect(self.botConfig.mentionedDbPath)
+            self.cursor = self.conn.cursor()
+
+            self.cursor.execute("CREATE TABLE IF NOT EXISTS mentioned (id INTEGER)")
+
         self.ai = AI("responses.json", "statement_indicators.json")
 
         # Read banned phrases
@@ -41,10 +47,6 @@ class Bot:
             self.bannedPhrases = file.read().splitlines()
 
         self.ponydb = PonyDB("ponies.json", "scorewords.json")
-
-        # Create mentioned.txt if not exists
-        if not os.path.exists("mentioned.txt"):
-            open("mentioned.txt", "w").close()
 
     def Start(self):
         while True:
@@ -187,15 +189,12 @@ class Bot:
 
 
     def AlreadyMentioned(self, tweetID):
-        with open("mentioned.txt", "r+") as file:
-            for line in file.readlines():
-                if str(tweetID) in line:
-                    return True
-        return False
+        self.cursor.execute("SELECT * FROM mentioned WHERE id=?", (tweetID,))
+        return len(self.cursor.fetchall()) != 0
 
     def WriteMentioned(self, tweetID):
-        with open("mentioned.txt", "a") as file:
-            file.write(str(tweetID) + "\n")
+        self.cursor.execute("INSERT INTO mentioned VALUES (?)", (tweetID,))
+        self.conn.commit()
 
     def MainLoop(self):
         mentions = []
