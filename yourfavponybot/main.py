@@ -35,6 +35,11 @@ class Bot:
 
             self.twitter = Twitter(self.botConfig, self.noUpdateStatus)
 
+            self.conn = sqlite3.connect(self.botConfig.mentionedDbPath)
+            self.cursor = self.conn.cursor()
+
+            self.cursor.execute("CREATE TABLE IF NOT EXISTS mentioned (id INTEGER)")
+
         self.ai = AI("responses.json", "statement_indicators.json")
 
         # Read banned phrases
@@ -42,11 +47,6 @@ class Bot:
             self.bannedPhrases = file.read().splitlines()
 
         self.ponydb = PonyDB("ponies.json", "scorewords.json")
-
-        self.conn = sqlite3.connect(self.botConfig.mentionedDbPath)
-        self.cursor = self.conn.cursor()
-
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS mentioned (id INTEGER)")
 
     def Start(self):
         while True:
