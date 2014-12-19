@@ -7,6 +7,9 @@ Your favourite pony bot is a Twitterbot that will try to find out your favourite
 ## Requirements
 * Python 2.7
 * Tweepy
+* requests
+* DerPyBooru
+* sqlite3
 
 ## Usage
 
@@ -57,7 +60,11 @@ Example: "@Guy Wasn't me who programmed this!"
 
 ## Remarks
 
-Mentioned Tweet-IDs will be written to mentioned.txt and the log file is log.txt
+Mentioned Tweet-IDs will be written to mentioned.db and the log file is log.txt
+
+## mentioned.txt migration of 19th Dec., 2014
+
+We moved saving data in mentioned.txt to a SQL database. Please use migrate_mentioned.py to migrate your .txt file.
 
 ## Help wanted with
 
