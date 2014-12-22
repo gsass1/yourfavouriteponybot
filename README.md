@@ -1,8 +1,8 @@
-# Your favourite pony bot
+# Your Favourite Pony Bot
 
 [![Build Status](https://travis-ci.org/Nuke928/yourfavouriteponybot.svg?branch=master)](https://travis-ci.org/Nuke928/yourfavouriteponybot)
 
-Your favourite pony bot is a Twitterbot that will try to find out your favourite pony, right now by skimping through your Twitter feed.
+"Your Favourite Pony Bot" is a Twitterbot that will try to find a Twitter users favourite pony by looking at his/her posted Tweets.
   
   [See the bot in action!](https://twitter.com/YourFavPonyBot)
 
