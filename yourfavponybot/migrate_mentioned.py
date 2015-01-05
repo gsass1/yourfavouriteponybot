@@ -1,7 +1,7 @@
 """This script migrates a mentioned.txt file to a sqlite3 database"""
 
-from argparse import ArgumentParser
 import sqlite3
+from argparse import ArgumentParser
 
 def main():
     """

@@ -1,5 +1,4 @@
 import json, random
-
 from log import log
 
 class AI:

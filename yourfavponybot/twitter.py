@@ -1,5 +1,5 @@
-from log import log
 import tweepy
+from log import log
 
 class Twitter:
     def __init__(self, config, noUpdateStatus):

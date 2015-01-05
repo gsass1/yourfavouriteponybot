@@ -1,13 +1,11 @@
-import logging, os, tweepy, time, sys, random, json
+import heapq, logging, os, tweepy, time, sys, random, json, sqlite3
 from ponydb import PonyDB
 from ai import AI
 from collections import Counter
-import heapq
 from operator import itemgetter
 from twitter import Twitter
 from argparse import ArgumentParser
 from dbquery import get_rand_dbimage_for_key
-import sqlite3
 
 bot = None
 

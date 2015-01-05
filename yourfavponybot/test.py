@@ -1,9 +1,6 @@
-import unittest
-import ponydb
+import json, unittest, ponydb, sys
 from ai import AI
 from main import Bot
-import json
-import sys
 
 class Mention:
     pass

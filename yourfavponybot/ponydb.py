@@ -1,5 +1,4 @@
 import json, re, random
-
 from collections import defaultdict
 from log import log
 
