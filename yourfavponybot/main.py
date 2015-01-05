@@ -136,9 +136,13 @@ class Bot:
         if highest:
             # Append image
             pony = highest[0].replace('_', ' ')
-            image = get_rand_dbimage_for_key(pony)
+            try:
+                image = get_rand_dbimage_for_key(pony)
+            except:
+                image = None
 
-            status = "{0} {1}".format(status, image.full)
+            if image is not None and image.full is not None:
+                status = "{0} {1}".format(status, image.full)
 
         return status, evalType, totalRefs
 
