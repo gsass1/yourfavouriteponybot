@@ -6,5 +6,6 @@
     "tweetInterval": 30,
     "tweetGrabInterval": 120,
     "rateLimitWaitInterval": 360,
-    "mentionedDbPath":  "mentioned.db"
+    "mentionedDbPath":  "mentioned.db",
+    "startTime": ""
 }

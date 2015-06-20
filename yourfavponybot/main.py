@@ -1,4 +1,4 @@
-import heapq, logging, os, tweepy, time, sys, random, json, sqlite3
+import heapq, logging, os, tweepy, time, sys, random, json, sqlite3, datetime
 from ponydb import PonyDB
 from ai import AI
 from collections import Counter
@@ -198,6 +198,14 @@ class Bot:
         self.cursor.execute("INSERT INTO mentioned VALUES (?)", (tweetID,))
         self.conn.commit()
 
+    def IsTweetInPast(self, tweet):
+        if self.botConfig.startTime == "":
+            return False
+
+        startTimeDate = datetime.datetime.strptime(self.botConfig.startTime, "%Y-%m-%d %H:%M:%S")
+
+        return (tweet.created_at - startTimeDate).total_seconds() < 0
+
     def MainLoop(self):
         mentions = []
         try:
@@ -207,6 +215,9 @@ class Bot:
             time.sleep(self.botConfig.rateLimitWaitInterval)
         for mention in mentions:
             if self.AlreadyMentioned(mention.id):
+                continue
+            elif self.IsTweetInPast(mention):
+                self.WriteMentioned(mention.id)
                 continue
             else:
                 if self.ContainsBannedPhrase(mention.text):

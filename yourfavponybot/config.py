@@ -13,3 +13,4 @@ class Config:
                 self.tweetGrabInterval = int(jsonData["tweetGrabInterval"])
                 self.rateLimitWaitInterval = int(jsonData["rateLimitWaitInterval"])
                 self.mentionedDbPath = jsonData["mentionedDbPath"]
+                self.startTime = jsonData["startTime"]
