@@ -9,10 +9,10 @@ class Twitter:
         self.api = tweepy.API(self.auth)
         self.noUpdateStatus = noUpdateStatus
 
-    def UpdateStatus(self, status, id):
-        log.info("Mentioned: {0}".format(status))
+    def UpdateStatus(self, newStatus, id):
+        log.info("Mentioned: {0}".format(newStatus))
         if not self.noUpdateStatus:
-            self.api.update_status(status, id)
+            self.api.update_status(in_reply_to_status_id=id, status=newStatus)
 
     def GetMentionsTimeline(self):
         return self.api.mentions_timeline(count=200)
